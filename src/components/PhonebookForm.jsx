@@ -1,5 +1,7 @@
 import { nanoid } from 'nanoid'
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
 
 const { Component } = require("react");
 
@@ -15,7 +17,6 @@ export class PhonebookForm extends Component{
   state = {
     name: '',
     number: '',
-    id: ''
   };
 // генерація id
   // modelIid = nanoid()
@@ -80,4 +81,8 @@ export class PhonebookForm extends Component{
   
 }
 
+
+PhonebookForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 

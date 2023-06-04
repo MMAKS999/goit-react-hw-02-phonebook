@@ -26,5 +26,5 @@ ContactList.propTypes = {
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
   })).isRequired,
-  onDelateContact: PropTypes.elementType.isRequired,
+  onDelateContact: PropTypes.func.isRequired,
 }

@@ -14,14 +14,15 @@ export class App extends Component {
 
   addContact = (dataContact) => {
     // console.log(dataContact)
-    if (this.state.contacts.some(contact => contact.name === dataContact.name)) {
-      Swal.fire(`${dataContact.name} is already in contacts.`)
-    } else {
+    if (this.state.contacts.some(contact => contact.name.toLowerCase() === dataContact.name.toLowerCase())) {
+      Swal.fire(`${dataContact.name} is already in contacts.`);
+      return
+    } 
       this.setState(prevState => ({
         contacts:[dataContact, ...prevState.contacts]
       }))
       // console.log(this.state)  
-    }
+    
   };
 
   changeFilter = (ev) => {
