@@ -1,58 +1,54 @@
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-
-const { Component } = require("react");
-
+const { Component } = require('react');
 
 const Form = styled.form`
   border: 1px solid #ccc;
   padding: 10px;
   display: flex;
   width: 500px;
- `;
+`;
 
-export class PhonebookForm extends Component{
+export class PhonebookForm extends Component {
   state = {
     name: '',
     number: '',
   };
-// генерація id
-  // modelIid = nanoid()
- 
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+  // генерація id
 
-  handleChange = (ev) => {
-    // console.log(ev.currentTarget.value)
+  handleChange = ev => {
     const { name, value } = ev.currentTarget;
-    this.setState({ id: nanoid() })
     this.setState({ [name]: value });
   };
- 
-  // считування інформації з інпуту і 
+
+  // считування інформації з інпуту і
   handleSubmit = ev => {
     ev.preventDefault();
-
-    // console.log(this.state)
-    // console.log(this.modelIid)
+    const { name, number } = this.state;
     // Перекидаємо в Арр
-    this.props.onSubmit(this.state)
+    const newContact = { id: nanoid(), name, number };
+    this.props.onSubmit(newContact);
     this.reset();
   };
 
   reset = () => {
     this.setState({
-      id: '',
       name: '',
-      number: ''
-    })
+      number: '',
+    });
   };
 
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
         <label>
-          Name<input
+          Name
+          <input
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -60,10 +56,11 @@ export class PhonebookForm extends Component{
             required
             value={this.state.name}
             onChange={this.handleChange}
-           />
+          />
         </label>
-        <label >
-          Number<input
+        <label>
+          Number
+          <input
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[\-.\s]?\(?\d{1,3}?\)?[\-.\s]?\d{1,4}[\-.\s]?\d{1,4}[\-.\s]?\d{1,9}"
@@ -74,15 +71,8 @@ export class PhonebookForm extends Component{
           />
         </label>
         <button type="submit">Add contact</button>
-        
       </Form>
     );
-  };
-  
+  }
 }
-
-
-PhonebookForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
